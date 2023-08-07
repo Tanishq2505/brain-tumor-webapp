@@ -25,6 +25,7 @@ def load_model():
     loaded_model = model_from_json(loaded_model_json)
     # load weights into new model
     loaded_model.load_weights("model.h5")
+    return loaded_model
 
 
 def get_cv2_image_from_base64_string(b64str):
@@ -48,7 +49,7 @@ def home():
 def read_root():
 
     print("Function called")
-    load_model()
+    loaded_model = load_model()
     print("Model loaded")
     if request.method == 'GET': 
         return "Yes it is working!"
