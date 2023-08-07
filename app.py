@@ -43,8 +43,9 @@ def get_image_from_base64_string(b64str):
 def home():
     return "Hello World"
 
-@app.route("/", methods=['POST'])
+@app.route("/", methods=['GET','POST'])
 def read_root():
+    if request.method == 'GET': return "Yes it is working!"
     data = json.loads(request.data)
     predict_img = []
     for item in data['image']:
