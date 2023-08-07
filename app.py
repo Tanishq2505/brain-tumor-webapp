@@ -66,7 +66,7 @@ def read_root():
     # tf_images = tf.convert_to_tensor(np_images, dtype=tf.float32)
     # # # Convert the image to a numpy array
     prediction = loaded_model.predict(np.array(predict_img))
-    result = np.argmax(prediction, axis=1)
+    # result = np.argmax(prediction, axis=1)
 
     # make the probablity frtom prediction
     # print(prediction[:,1])
