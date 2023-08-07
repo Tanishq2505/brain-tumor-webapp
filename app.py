@@ -47,6 +47,7 @@ def home():
 def read_root():
     if request.method == 'GET': return "Yes it is working!"
     data = json.loads(request.data)
+    print("Image loaded")
     predict_img = []
     for item in data['image']:
         #Decode the base64-encoded image
@@ -60,12 +61,13 @@ def read_root():
         # resized_image = pil_image.resize((224, 224))
         # # Append the resized image to the list
         # predict_img.append(resized_image)
-
+    print("Image ready to predict")
     # np_images = np.array([np.array(img) for img in predict_img])
     # # Convert the NumPy array to a TensorFlow tensor
     # tf_images = tf.convert_to_tensor(np_images, dtype=tf.float32)
     # # # Convert the image to a numpy array
     prediction = loaded_model.predict(np.array(predict_img))
+    print("Image predicted")
     # result = np.argmax(prediction, axis=1)
 
     # make the probablity frtom prediction
