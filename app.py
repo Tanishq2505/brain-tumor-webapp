@@ -17,13 +17,14 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-# model = pickle.load(open("brain_tumor_model.pkl", "rb"))
-json_file = open('model.json', 'r')
-loaded_model_json = json_file.read()
-json_file.close()
-loaded_model = model_from_json(loaded_model_json)
-# load weights into new model
-loaded_model.load_weights("model.h5")
+def load_model():
+    # model = pickle.load(open("brain_tumor_model.pkl", "rb"))
+    json_file = open('model.json', 'r')
+    loaded_model_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_model_json)
+    # load weights into new model
+    loaded_model.load_weights("model.h5")
 
 
 def get_cv2_image_from_base64_string(b64str):
@@ -45,7 +46,10 @@ def home():
 
 @app.route("/", methods=['GET','POST'])
 def read_root():
+
     print("Function called")
+    load_model()
+    print("Model loaded")
     if request.method == 'GET': 
         return "Yes it is working!"
     elif request.method == 'POST':
