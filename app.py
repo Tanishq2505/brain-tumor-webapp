@@ -45,36 +45,40 @@ def home():
 
 @app.route("/", methods=['GET','POST'])
 def read_root():
-    if request.method == 'GET': return "Yes it is working!"
-    data = json.loads(request.data)
-    print("Image loaded")
-    predict_img = []
-    for item in data['image']:
-        #Decode the base64-encoded image
-        image = get_cv2_image_from_base64_string(item)
-        image = cv2.resize(image,(224,224))
-        predict_img.append(image)
-        # encoded_data = item.split(',')[1]
-        # image_data = BytesIO(base64.b64decode(encoded_data))
-        # pil_image = Image.open(image_data)
-        # # Resize the image to 224x224
-        # resized_image = pil_image.resize((224, 224))
-        # # Append the resized image to the list
-        # predict_img.append(resized_image)
-    print("Image ready to predict")
-    # np_images = np.array([np.array(img) for img in predict_img])
-    # # Convert the NumPy array to a TensorFlow tensor
-    # tf_images = tf.convert_to_tensor(np_images, dtype=tf.float32)
-    # # # Convert the image to a numpy array
-    prediction = loaded_model.predict(np.array(predict_img))
-    print("Image predicted")
-    # result = np.argmax(prediction, axis=1)
+    print("Function called")
+    if request.method == 'GET': 
+        return "Yes it is working!"
+    elif request.method == 'POST':
+        print("Request loaded")
+        data = json.loads(request.data)
+        print("Image loaded")
+        predict_img = []
+        for item in data['image']:
+            #Decode the base64-encoded image
+            image = get_cv2_image_from_base64_string(item)
+            image = cv2.resize(image,(224,224))
+            predict_img.append(image)
+            # encoded_data = item.split(',')[1]
+            # image_data = BytesIO(base64.b64decode(encoded_data))
+            # pil_image = Image.open(image_data)
+            # # Resize the image to 224x224
+            # resized_image = pil_image.resize((224, 224))
+            # # Append the resized image to the list
+            # predict_img.append(resized_image)
+        print("Image ready to predict")
+        # np_images = np.array([np.array(img) for img in predict_img])
+        # # Convert the NumPy array to a TensorFlow tensor
+        # tf_images = tf.convert_to_tensor(np_images, dtype=tf.float32)
+        # # # Convert the image to a numpy array
+        prediction = loaded_model.predict(np.array(predict_img))
+        print("Image predicted")
+        # result = np.argmax(prediction, axis=1)
 
-    # make the probablity frtom prediction
-    # print(prediction[:,1])
-    # print(result)
+        # make the probablity frtom prediction
+        # print(prediction[:,1])
+        # print(result)
 
-    return {"result": prediction[:, 1].tolist()}
+        return {"result": prediction[:, 1].tolist()}
 
 
 if __name__ == '__main__':
