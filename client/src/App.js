@@ -159,7 +159,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <Body>
-        <Heading>Brain Tumor Detector 🧠</Heading>
+        <Heading>Brain Tumor Detector</Heading>
         {loading ?
           <Centered>
             <Loader />
